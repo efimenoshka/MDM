@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="590.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.AddChequeController">
+   <children>
+      <ChoiceBox fx:id="choice_service" layoutX="45.0" layoutY="44.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="choice_worker" layoutX="255.0" layoutY="44.0" prefHeight="25.0" prefWidth="309.0" />
+      <Label layoutX="45.0" layoutY="14.0" text="Услуга" />
+      <Label layoutX="255.0" layoutY="14.0" text="Работник" />
+      <Label layoutX="45.0" layoutY="96.0" text="Клиент" />
+      <TextField fx:id="tf_name_client" layoutX="46.0" layoutY="123.0" />
+      <TextField fx:id="tf_telephone_client" layoutX="221.0" layoutY="123.0" />
+      <CheckBox fx:id="check_new_client" layoutX="95.0" layoutY="96.0" mnemonicParsing="false" text="Новый клиент" />
+      <TableView fx:id="tv_clients" layoutX="46.0" layoutY="158.0" prefHeight="200.0" prefWidth="325.0" />
+      <Button fx:id="but_new_order" layoutX="433.0" layoutY="333.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Добавить" />
+      <DatePicker fx:id="dp_date" editable="false" layoutX="390.0" layoutY="158.0" />
+      <TextField fx:id="tf_time" layoutX="390.0" layoutY="233.0" prefHeight="25.0" prefWidth="149.0" />
+      <Label layoutX="390.0" layoutY="140.0" text="Дата" />
+      <Label layoutX="392.0" layoutY="216.0" text="Время" />
+   </children>
+</AnchorPane>

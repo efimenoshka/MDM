@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.LoginController">
+   <children>
+      <Text layoutX="237.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Привет сукин сын">
+         <font>
+            <Font name="Times New Roman" size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="132.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ебучий логин">
+         <font>
+            <Font name="Times New Roman" size="19.0" />
+         </font>
+      </Text>
+      <TextField fx:id="tf_login" layoutX="132.0" layoutY="169.0" text="anna" />
+      <PasswordField fx:id="tf_password" layoutX="132.0" layoutY="244.0" text="zaq12wsx" />
+      <Button fx:id="but_enter" layoutX="271.0" layoutY="323.0" mnemonicParsing="false" text="Огонь">
+         <font>
+            <Font name="Times New Roman Bold" size="20.0" />
+         </font>
+      </Button>
+      <Text layoutX="132.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Сучарский пароль">
+         <font>
+            <Font name="Times New Roman" size="19.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
