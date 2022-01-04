@@ -7,12 +7,28 @@ public class TypeOfService {
     private String price;
     private String position;
 
+    private String priceStr;
+
     public TypeOfService(int id, String name, String time, String price, String position) {
         this.id = id;
         this.name = name;
         this.time = time;
         this.price = price;
         this.position = position;
+
+        priceStr = price.split("\\.")[0];
+    }
+
+    public TypeOfService(String name, String time, String price, String position) {
+        this.name = name;
+        this.time = time;
+        this.price = price;
+        this.position = position;
+    }
+
+    public TypeOfService(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public int getId() {
@@ -53,6 +69,14 @@ public class TypeOfService {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public String getPriceStr() {
+        return priceStr;
+    }
+
+    public void setPriceStr(String priceStr) {
+        this.priceStr = priceStr;
     }
 
     @Override
