@@ -7,26 +7,26 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="336.0" prefWidth="437.0" styleClass="linear-grad" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.LoginController">
    <children>
-      <Text layoutX="237.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Привет сукин сын">
+      <Text layoutX="108.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Авторизация" wrappingWidth="221.6416015625">
          <font>
-            <Font name="Times New Roman" size="18.0" />
+            <Font name="Times New Roman Bold" size="36.0" />
          </font>
       </Text>
-      <Text layoutX="132.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ебучий логин">
+      <Text layoutX="113.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Логин">
          <font>
             <Font name="Times New Roman" size="19.0" />
          </font>
       </Text>
-      <TextField fx:id="tf_login" layoutX="132.0" layoutY="169.0" text="anna" />
-      <PasswordField fx:id="tf_password" layoutX="132.0" layoutY="244.0" text="zaq12wsx" />
-      <Button fx:id="but_enter" layoutX="271.0" layoutY="323.0" mnemonicParsing="false" text="Огонь">
+      <TextField fx:id="tf_login" layoutX="113.0" layoutY="116.0" prefHeight="25.0" prefWidth="211.0" text="anna" />
+      <PasswordField fx:id="tf_password" layoutX="113.0" layoutY="195.0" prefHeight="25.0" prefWidth="211.0" text="zaq12wsx" />
+      <Button fx:id="but_enter" layoutX="177.0" layoutY="267.0" mnemonicParsing="false" styleClass="button1" text="Войти">
          <font>
             <Font name="Times New Roman Bold" size="20.0" />
          </font>
       </Button>
-      <Text layoutX="132.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Сучарский пароль">
+      <Text layoutX="113.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пароль">
          <font>
             <Font name="Times New Roman" size="19.0" />
          </font>

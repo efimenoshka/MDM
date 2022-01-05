@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import sample.controllers.admin.AdminController;
 import sample.database.Database;
 import sample.tables.Worker;
 
@@ -65,9 +66,5 @@ public class LoginController {
                     break;
             }
         }
-
-
     }
-
-
 }
