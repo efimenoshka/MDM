@@ -6,6 +6,9 @@ public class Tables {
     public static final String WORKER_PASSWORD = "Password";
     public static final String WORKER_ID = "Id";
     public static final String WORKER_POSITION = "Position";
+    public static final String WORKER_NAME = "FullName";
+    public static final String WORKER_PHONE = "Telephone";
+    public static final String WORKER_EMAIL = "Email";
 
     public static final String CHEQUE_TABLE = "Cheque";
     public static final String CHEQUE_ID = "Id";
@@ -22,4 +25,8 @@ public class Tables {
 
     public static final String TYPE_OF_SERVICE_TABLE = "TypeOfService";
     public static final String TYPE_OF_SERVICE_ID = "Id";
+    public static final String TYPE_OF_SERVICE_NAME = "Name";
+    public static final String TYPE_OF_SERVICE_TIME = "Time";
+    public static final String TYPE_OF_SERVICE_PRICE = "Price";
+    public static final String TYPE_OF_SERVICE_POSITION = "Position";
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+<?import sample.MaskField?>
+
+<AnchorPane prefHeight="191.0" prefWidth="399.0" style="-fx-background-color: white;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.admin.AddCustomerController">
+   <children>
+      <TextField fx:id="tf_name" layoutX="30.0" layoutY="53.0" />
+      <Text layoutX="30.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Имя" />
+<!--      <TextField fx:id="tf_phone" layoutX="217.0" layoutY="53.0" />-->
+      <MaskField mask="+7(DDD)DDD-DD-DD" fx:id="tf_phone" layoutX="217.0" layoutY="53.0" />
+      <Text layoutX="217.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Номер телефона" />
+      <Button fx:id="but_add" layoutX="78.0" layoutY="119.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="97.0" styleClass="button1" text="Добавить" />
+      <Button fx:id="but_cancel" layoutX="213.0" layoutY="119.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="97.0" styleClass="button1" text="Отмена" />
+   </children>
+</AnchorPane>

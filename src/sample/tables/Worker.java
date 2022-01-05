@@ -19,6 +19,15 @@ public class Worker {
         this.login = login;
     }
 
+    public Worker(String fullName, String telephone, String email, String position, String password, String login) {
+        this.fullName = fullName;
+        this.telephone = telephone;
+        this.email = email;
+        this.position = position;
+        this.password = password;
+        this.login = login;
+    }
+
     public int getId() {
         return id;
     }

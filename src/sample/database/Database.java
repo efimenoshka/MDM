@@ -14,7 +14,8 @@ import static sample.database.Tables.*;
 public class Database {
     protected String dbHost = "localhost\\SQLEXPRESS";
     protected String dbName = "IS_Hairdresser";
-    protected String dbUser = "admin";
+//    protected String dbUser = "admin";
+    protected String dbUser = "root";
     protected String dbPass = "1234";
 
     protected String dbConnectString = "jdbc:sqlserver://" + dbHost + ";database=" + dbName;
@@ -217,6 +218,45 @@ public class Database {
         return workerPosition;
     }
 
+    public void addWorker(Worker worker) {
+        String request = "INSERT INTO " + WORKER_TABLE + "(" + WORKER_NAME + "," + WORKER_PHONE + "," +
+                WORKER_EMAIL + "," + WORKER_POSITION + "," + WORKER_PASSWORD + "," + WORKER_LOGIN + ")" + "VALUES(?,?,?,?,?,?)";
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(request);
+            prSt.setString(1, worker.getFullName());
+            prSt.setString(2, worker.getTelephone());
+            prSt.setString(3, worker.getEmail());
+            prSt.setString(4, worker.getPosition());
+            prSt.setString(5, worker.getPassword());
+            prSt.setString(6, worker.getLogin());
+            prSt.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateWorker(Worker worker) {
+        String update = "UPDATE " + WORKER_TABLE + " SET " +
+                WORKER_NAME + "=?," + WORKER_PHONE + "=?, " +
+                WORKER_EMAIL + "=?," + WORKER_POSITION + "=?, " +
+                WORKER_PASSWORD + "=?," + WORKER_LOGIN + "=? " +
+                "WHERE " + WORKER_ID + "=?";
+
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(update);
+            prSt.setString(1, worker.getFullName());
+            prSt.setString(2, worker.getTelephone());
+            prSt.setString(3, worker.getEmail());
+            prSt.setString(4, worker.getPosition());
+            prSt.setString(5, worker.getPassword());
+            prSt.setString(6, worker.getLogin());
+            prSt.setInt(7, worker.getId());
+            prSt.executeUpdate();
+        } catch (SQLException | ClassNotFoundException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     public ArrayList<Customer> getListCustomers(){
         ArrayList<Customer> customers = new ArrayList<>();
         String request = "SELECT * FROM " + CUSTOMER_TABLE;
@@ -282,5 +322,81 @@ public class Database {
             e.printStackTrace();
         }
         return newCustomer;
+    }
+
+    //add new client
+    public void addCustomer(Customer customer){
+        String request = "INSERT INTO " + CUSTOMER_TABLE +
+                "(" + CUSTOMER_NAME + "," + CUSTOMER_TELEPHONE + ")" + "VALUES(?,?)";
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(request);
+            prSt.setString(1, customer.getName());
+            prSt.setString(2, customer.getTelephone());
+            prSt.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateCustomer(Customer customer) {
+        String update = "UPDATE " + CUSTOMER_TABLE + " SET " +
+                CUSTOMER_NAME + "=?," + CUSTOMER_TELEPHONE + "=? " +
+                "WHERE " + TYPE_OF_SERVICE_ID + "=?";
+
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(update);
+            prSt.setString(1, customer.getName());
+            prSt.setString(2, customer.getTelephone());
+            prSt.setInt(3, customer.getId());
+            prSt.executeUpdate();
+        } catch (SQLException | ClassNotFoundException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void deleteCheque(Cheque cheque) {
+        String request = "DELETE FROM " + CHEQUE_TABLE + " WHERE " + CHEQUE_ID + "=?";
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(request);
+            prSt.setInt(1, cheque.getId());
+
+            prSt.executeUpdate();
+        } catch (SQLException | ClassNotFoundException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void addTypeOfService(TypeOfService typeOfService) {
+        String request = "INSERT INTO " + TYPE_OF_SERVICE_TABLE + "(" + TYPE_OF_SERVICE_NAME + "," + TYPE_OF_SERVICE_TIME + "," +
+                TYPE_OF_SERVICE_PRICE + "," + TYPE_OF_SERVICE_POSITION + ")" + "VALUES(?,?,?,?)";
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(request);
+            prSt.setString(1, typeOfService.getName());
+            prSt.setString(2, typeOfService.getTime());
+            prSt.setString(3, typeOfService.getPrice());
+            prSt.setString(4, typeOfService.getPosition());
+            prSt.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateTypeOfService(TypeOfService typeOfService) {
+        String update = "UPDATE " + TYPE_OF_SERVICE_TABLE + " SET " +
+                TYPE_OF_SERVICE_NAME + "=?," + TYPE_OF_SERVICE_TIME + "=?, "
+                + TYPE_OF_SERVICE_PRICE + "=?, " + TYPE_OF_SERVICE_POSITION + "=? " +
+                "WHERE " + TYPE_OF_SERVICE_ID + "=?";
+
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(update);
+            prSt.setString(1, typeOfService.getName());
+            prSt.setString(2, typeOfService.getTime());
+            prSt.setString(3, typeOfService.getPrice());
+            prSt.setString(4, typeOfService.getPosition());
+            prSt.setInt(5, typeOfService.getId());
+            prSt.executeUpdate();
+        } catch (SQLException | ClassNotFoundException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }

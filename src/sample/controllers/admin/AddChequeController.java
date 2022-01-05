@@ -1,4 +1,4 @@
-package sample.controllers;
+package sample.controllers.admin;
 
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import sample.controllers.admin.AdminChequeController;
+import sample.controllers.admin.AdminController;
 import sample.database.Database;
 import sample.tables.Cheque;
 import sample.tables.Customer;
@@ -46,11 +48,12 @@ public class AddChequeController {
     @FXML
     private TextField tf_time;
 
-    private Database database = new Database();
-    private ObservableList<TypeOfService> listTypeOfService = FXCollections.observableArrayList();
-    private ObservableList<Worker> listWorker = FXCollections.observableArrayList();
-    private ObservableList<Customer> listCustomer = FXCollections.observableArrayList();
+    private final Database database = new Database();
+    private final ObservableList<TypeOfService> listTypeOfService = FXCollections.observableArrayList();
+    private final ObservableList<Worker> listWorker = FXCollections.observableArrayList();
+    private final ObservableList<Customer> listCustomer = FXCollections.observableArrayList();
     private Customer globalCustomer = null;
+    private AdminChequeController parentController;
 
 
     @FXML void initialize() {
@@ -86,22 +89,27 @@ public class AddChequeController {
         tf_telephone_client.textProperty().addListener(changeListener1);
 
         // чекбокс нового клиента
-        check_new_client.setOnAction(e -> {
-            if (check_new_client.isSelected()) {
-                tv_clients.setDisable(true);
-            } else {
-                tv_clients.setDisable(false);
+        check_new_client.setOnAction(e -> tv_clients.setDisable(check_new_client.isSelected()));
+
+        //автозаполнение полей
+        TableView.TableViewSelectionModel<Customer> selectionRow = tv_clients.getSelectionModel();
+        selectionRow.selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                tf_name_client.setText(newValue.getName());
+                tf_telephone_client.setText(newValue.getTelephone());
+                globalCustomer = newValue;
             }
         });
 
-        //автозаполнение полей
-        tv_clients.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                tf_name_client.setText(newSelection.getName());
-                tf_telephone_client.setText(newSelection.getTelephone());
-                globalCustomer = newSelection;
-            }
-        });
+
+
+//        tv_clients.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+//            if (newSelection != null) {
+//                tf_name_client.setText(newSelection.getName());
+//                tf_telephone_client.setText(newSelection.getTelephone());
+//                globalCustomer = newSelection;
+//            }
+//        });
 
         but_new_order.setOnAction(e -> addCheque());
     }
@@ -166,6 +174,15 @@ public class AddChequeController {
         if (choice_service.getValue() == null) return false;
         if (choice_worker.getValue() == null) return false;
         if (tf_time.getText() == null || tf_time.getText().trim().isEmpty()) return false;
+        try {
+            String[] arr = tf_time.getText().split(":");
+            int a = Integer.parseInt(arr[0]);
+            if (a < 0 || a > 23) return false;
+            int b = Integer.parseInt(arr[1]);
+            if (b < 0 || b > 59) return false;
+        } catch (Exception ex) {
+            return false;
+        }
         if (dp_date.getValue() == null) return false;
         if (check_new_client.isSelected()){
            if (tf_name_client.getText() == null || tf_name_client.getText().trim().isEmpty()) return false;
@@ -183,18 +200,17 @@ public class AddChequeController {
 
     private void close(){
         FXMLLoader newLoader = new FXMLLoader();
-        newLoader.setLocation(getClass().getResource("/sample/views/admin-view.fxml"));
+        newLoader.setLocation(getClass().getResource("/sample/views/admin-cheque-view.fxml"));
         try {
             newLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ((AdminController) newLoader.getController()).updateTable();
+        parentController.updateTable();
         but_new_order.getScene().getWindow().hide();
     }
+
+    public void setParentController(AdminChequeController parentController) {
+        this.parentController = parentController;
+    }
 }
-
-
-// TODO: разобраться с выводоом времени заказа
-// TODO: удалить/изменить
-// TODO: фильтпция

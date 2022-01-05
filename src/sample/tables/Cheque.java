@@ -14,6 +14,8 @@ public class Cheque {
 
     private SimpleDateFormat simpleDate = new SimpleDateFormat("dd.MM.yy");
     private String dateStr;
+    private String timeStr;
+    private String costStr;
 
     public Cheque(int id, TypeOfService nameService, Customer customer, Worker worker, Date date, String time) {
         this.id = id;
@@ -24,7 +26,9 @@ public class Cheque {
         this.time = time;
 
         this.cost = nameService.getPrice();
+        this.cost = cost.split("\\.")[0];
         dateStr = simpleDate.format(date);
+        timeStr = time.split("\\.")[0];
     }
 
     public Cheque(TypeOfService nameService, Customer customer, Worker worker, Date date, String time) {
@@ -97,5 +101,13 @@ public class Cheque {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getTimeStr() {
+        return timeStr;
+    }
+
+    public void setTimeStr(String timeStr) {
+        this.timeStr = timeStr;
     }
 }
