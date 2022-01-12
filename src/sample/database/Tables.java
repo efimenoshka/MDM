@@ -17,6 +17,7 @@ public class Tables {
     public static final String CHEQUE_WORKER_ID = "Worker_Id";
     public static final String CHEQUE_DATE = "Date";
     public static final String CHEQUE_TIME = "Time";
+    public static final String CHEQUE_STATUS = "Status";
 
     public static final String CUSTOMER_TABLE = "Customers";
     public static final String CUSTOMER_ID = "Id";

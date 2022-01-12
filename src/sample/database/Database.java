@@ -137,7 +137,33 @@ public class Database {
                         getClientById(pox.getInt(3)),
                         getWorkerById(pox.getInt(4)),
                         pox.getDate(5),
-                        pox.getString(6)
+                        pox.getString(6),
+                        pox.getInt(7)
+                ));
+            }
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return cheques;
+    }
+
+    public ArrayList<Cheque> getListChequeByWorkerId(Worker worker){
+        ArrayList<Cheque> cheques = new ArrayList<>();
+        String request = "SELECT * FROM " + CHEQUE_TABLE + " WHERE " + CHEQUE_WORKER_ID + "=?";
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(request);
+            prSt.setInt(1, worker.getId());
+            ResultSet pox = prSt.executeQuery();
+            while (pox.next()){
+                cheques.add(new Cheque(
+                        pox.getInt(1),
+                        getTypeServiceById(pox.getInt(2)),
+                        getClientById(pox.getInt(3)),
+                        getWorkerById(pox.getInt(4)),
+                        pox.getDate(5),
+                        pox.getString(6),
+                        pox.getInt(7)
                 ));
             }
         }
@@ -292,6 +318,25 @@ public class Database {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public void updateCheque(Cheque cheque){
+//        String update = "UPDATE " + CHEQUE_TABLE + " SET " +
+//                    CHEQUE_NAME_SERVICE_ID + "=?," + CHEQUE_CUSTOMER_ID + "=?, " +
+//                    CHEQUE_WORKER_ID + "=?," + CHEQUE_DATE + "=?, " +
+//                    CHEQUE_TIME + "=?," + CHE + "=?, " +
+//                "WHERE " + TYPE_OF_SERVICE_ID + "=?";
+//        try {
+//            PreparedStatement prSt = getDbConnection().prepareStatement(request);
+//            prSt.setInt(1, cheque.getNameService().getId());
+//            prSt.setInt(2, cheque.getCustomer().getId());
+//            prSt.setInt(3, cheque.getWorker().getId());
+//            prSt.setObject(4, cheque.getDate(), Types.DATE);
+//            prSt.setObject(5, cheque.getTime(), Types.TIME);
+//            prSt.executeUpdate();
+//        } catch (SQLException | ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
     //add new client
