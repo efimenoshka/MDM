@@ -92,7 +92,7 @@ public class AddTypeOfServiceController {
         tf_cost.setText(typeOfService.getPriceStr());
         tf_time.setText(typeOfService.getTime());
         int index = 0;
-        for (int i = 0; i < Position.values().length; i++) {
+        for (int i = 0; i < Position.values().length-2; i++) {
             if (listPosition.get(i).toString().equals(typeOfService.getPosition())) index = i;
         }
 
