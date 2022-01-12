@@ -11,6 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sample.controllers.admin.AdminController;
+import sample.controllers.worker.WorkerController;
 import sample.database.Database;
 import sample.tables.Worker;
 
@@ -48,22 +49,34 @@ public class LoginController {
             errorWithoutPassword();
         } else {
             String workerPosition = worker.getPosition();
-            switch (workerPosition){
-                case "Администратор":
-                    FXMLLoader newLoader = new FXMLLoader();
-                    newLoader.setLocation(getClass().getResource("/sample/views/admin-view.fxml"));
-                    try {
-                        newLoader.load();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Parent root = newLoader.getRoot();
-                    Stage stage = new Stage();
-                    stage.setTitle("Администратор");
-                    stage.setScene(new Scene(root));
-                    ((AdminController) newLoader.getController()).setWorker(worker);
-                    stage.showAndWait();
-                    break;
+            if ("Администратор".equals(workerPosition)) {
+                FXMLLoader newLoader = new FXMLLoader();
+                newLoader.setLocation(getClass().getResource("/sample/views/admin-view.fxml"));
+                try {
+                    newLoader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Parent root = newLoader.getRoot();
+                Stage stage = new Stage();
+                stage.setTitle("Администратор");
+                stage.setScene(new Scene(root));
+                ((AdminController) newLoader.getController()).setWorker(worker);
+                stage.showAndWait();
+            } else {
+                FXMLLoader newLoader = new FXMLLoader();
+                newLoader.setLocation(getClass().getResource("/sample/views/worker-view.fxml"));
+                try {
+                    newLoader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Parent root = newLoader.getRoot();
+                Stage stage = new Stage();
+                stage.setTitle("Работник");
+                stage.setScene(new Scene(root));
+                ((WorkerController) newLoader.getController()).setWorker(worker);
+                stage.showAndWait();
             }
         }
     }

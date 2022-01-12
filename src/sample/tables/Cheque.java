@@ -11,19 +11,21 @@ public class Cheque {
     private String cost;
     private Date date;
     private String time;
+    private Status status;
 
     private SimpleDateFormat simpleDate = new SimpleDateFormat("dd.MM.yy");
     private String dateStr;
     private String timeStr;
     private String costStr;
 
-    public Cheque(int id, TypeOfService nameService, Customer customer, Worker worker, Date date, String time) {
+    public Cheque(int id, TypeOfService nameService, Customer customer, Worker worker, Date date, String time, int status) {
         this.id = id;
         this.nameService = nameService;
         this.customer = customer;
         this.worker = worker;
         this.date = date;
         this.time = time;
+        this.status = Status.values()[status];
 
         this.cost = nameService.getPrice();
         this.cost = cost.split("\\.")[0];
@@ -109,5 +111,13 @@ public class Cheque {
 
     public void setTimeStr(String timeStr) {
         this.timeStr = timeStr;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
