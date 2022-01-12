@@ -1,6 +1,5 @@
 package sample.controllers.admin;
 
-import com.sun.javafx.UnmodifiableArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

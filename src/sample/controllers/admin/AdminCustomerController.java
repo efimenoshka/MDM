@@ -76,7 +76,7 @@ public class AdminCustomerController {
         ((AddCustomerController) newLoader.getController()).setUpdate(curCustomer);
         Parent root = newLoader.getRoot();
         Stage stage = new Stage();
-        stage.setTitle("Добавление клиента");
+        stage.setTitle("Изменение клиента");
         stage.setScene(new Scene(root));
         stage.showAndWait();
     }
