@@ -7,7 +7,7 @@
 <AnchorPane prefHeight="705.0" prefWidth="1020.0" style="-fx-background-color: white;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.admin.AdminTypeOfServiceController">
    <children>
       <TableView fx:id="tv_type_of_service" layoutX="16.0" layoutY="96.0" prefHeight="587.0" prefWidth="983.0" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="96.0" />
-      <Button fx:id="but_add" layoutX="24.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" styleClass="button1" text="Добавить" />
-      <Button fx:id="but_update" layoutX="127.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" styleClass="button1" text="Изменить" />
+      <Button fx:id="but_add" layoutX="16.0" layoutY="40.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" styleClass="button1" text="Добавить" />
+      <Button fx:id="but_update" disable="true" layoutX="119.0" layoutY="40.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" styleClass="button1" text="Изменить" />
    </children>
 </AnchorPane>

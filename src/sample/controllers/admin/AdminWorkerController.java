@@ -65,8 +65,10 @@ public class AdminWorkerController {
 
         TableView.TableViewSelectionModel<Worker> selectionRow = tv_worker.getSelectionModel();
         selectionRow.selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null)
+            if (newValue != null) {
                 curWorker = newValue;
+                but_update.setDisable(false);
+            } else but_update.setDisable(true);
         });
 
         but_add.setOnAction(e -> showAdd());

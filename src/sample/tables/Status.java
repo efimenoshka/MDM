@@ -1,7 +1,7 @@
 package sample.tables;
 
 public enum Status {
-    PROCESS("Будущий"), END("Завершен");
+    PROCESS("Будущий"), END("Завершен"), ALL("Все");
 
     String name;
 

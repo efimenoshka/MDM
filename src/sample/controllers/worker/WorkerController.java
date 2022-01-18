@@ -1,5 +1,6 @@
 package sample.controllers.worker;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -29,7 +30,9 @@ public class WorkerController {
         but_all_cheque.setToggleGroup(group);
         but_current_cheque.setSelected(true);
 
+        showCurrentCheque();
         but_current_cheque.setOnAction(e -> showCurrentCheque());
+        but_all_cheque.setOnAction(e -> showAllCheque());
     }
 
     private void showCurrentCheque() {
@@ -39,7 +42,26 @@ public class WorkerController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ((WorkerCurrentChequeController) fxmlLoader.getController()).setWorker(worker);
+
+        new Thread(() -> Platform.runLater(() -> ((WorkerCurrentChequeController) fxmlLoader.getController()).setWorker(worker))).start();
+
+        AnchorPane child = fxmlLoader.getRoot();
+        AnchorPane.setBottomAnchor(child, 0d);
+        AnchorPane.setLeftAnchor(child, 0d);
+        AnchorPane.setRightAnchor(child, 0d);
+        AnchorPane.setTopAnchor(child, 0d);
+        pane_container.getChildren().clear();
+        pane_container.getChildren().add(child);
+    }
+
+    private void showAllCheque() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/sample/views/worker-all-cheque-view.fxml"));
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ((WorkerAllChequeController) fxmlLoader.getController()).setWorker(worker);
         AnchorPane child = fxmlLoader.getRoot();
         AnchorPane.setBottomAnchor(child, 0d);
         AnchorPane.setLeftAnchor(child, 0d);

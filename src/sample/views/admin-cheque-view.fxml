@@ -2,23 +2,29 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="705.0" prefWidth="1020.0" style="-fx-background-color: white;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.admin.AdminChequeController">
+<AnchorPane prefHeight="705.0" prefWidth="1240.0" style="-fx-background-color: white;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.admin.AdminChequeController">
    <children>
       <TableView fx:id="tv_order" layoutX="16.0" layoutY="96.0" prefHeight="587.0" prefWidth="983.0" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="96.0" />
-      <TextField fx:id="tf_client" layoutX="216.0" layoutY="64.0" />
-      <TextField fx:id="tf_worker" layoutX="392.0" layoutY="64.0" />
-      <Text layoutX="30.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Услуга" wrappingWidth="149.0" />
-      <Text layoutX="216.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Клиент" wrappingWidth="149.0" />
-      <Text layoutX="392.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Работник" wrappingWidth="149.0" />
-      <Button fx:id="but_filter" layoutX="573.0" layoutY="31.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" styleClass="button1" text="Фильтровать" />
-      <Button fx:id="but_reset" layoutX="573.0" layoutY="64.0" mnemonicParsing="false" styleClass="button1" text="Сбросить всё" />
-      <Button fx:id="but_add_cheque" layoutX="702.0" layoutY="47.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" styleClass="button1" text="Добавить" />
-      <Button fx:id="but_delete" layoutX="805.0" layoutY="47.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" styleClass="button1" text="Удалить" />
-      <ChoiceBox fx:id="cb_type_of_service" layoutX="22.0" layoutY="64.0" prefHeight="25.0" prefWidth="176.0" />
+      <TextField fx:id="tf_client" layoutX="179.0" layoutY="52.0" />
+      <TextField fx:id="tf_worker" layoutX="351.0" layoutY="52.0" />
+      <Text layoutX="30.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Услуга" wrappingWidth="149.0" />
+      <Text layoutX="179.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Клиент" wrappingWidth="149.0" />
+      <Text layoutX="351.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Работник" wrappingWidth="149.0" />
+      <Button fx:id="but_reset" layoutX="823.0" layoutY="49.0" mnemonicParsing="false" styleClass="button1" text="Сбросить всё" />
+      <Button fx:id="but_add_cheque" layoutX="930.0" layoutY="49.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" styleClass="button1" text="Добавить" />
+      <Button fx:id="but_delete" disable="true" layoutX="1131.0" layoutY="49.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" styleClass="button1" text="Удалить" />
+      <ChoiceBox fx:id="cb_type_of_service" layoutX="22.0" layoutY="51.0" prefHeight="27.0" prefWidth="139.0" />
+      <Button fx:id="but_change_cheque" disable="true" layoutX="1031.0" layoutY="49.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" styleClass="button1" text="Изменить" />
+      <DatePicker fx:id="dp_start" editable="false" layoutX="523.0" layoutY="52.0" prefHeight="25.0" prefWidth="127.0" />
+      <DatePicker fx:id="dp_stop" editable="false" layoutX="675.0" layoutY="52.0" prefHeight="25.0" prefWidth="127.0" />
+      <Text layoutX="523.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Начальный период" wrappingWidth="149.0" />
+      <Text layoutX="675.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Конечный период" wrappingWidth="149.0" />
+      <Button fx:id="but_report" layoutX="1031.0" layoutY="16.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="187.0" styleClass="button1" text="Ежедневный отчет" />
    </children>
 </AnchorPane>

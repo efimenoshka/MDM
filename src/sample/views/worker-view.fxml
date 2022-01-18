@@ -28,6 +28,6 @@
             </ToggleButton>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="pane_container" layoutY="139.0" prefHeight="699.0" prefWidth="1042.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <AnchorPane fx:id="pane_container" layoutY="139.0" prefHeight="699.0" prefWidth="1042.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="137.0" />
    </children>
 </AnchorPane>

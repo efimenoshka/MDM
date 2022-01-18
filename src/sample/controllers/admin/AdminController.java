@@ -1,5 +1,6 @@
 package sample.controllers.admin;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,6 +11,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import sample.controllers.worker.WorkerController;
+import sample.controllers.worker.WorkerCurrentChequeController;
 import sample.database.Database;
 import sample.tables.Cheque;
 import sample.tables.TypeOfService;
@@ -100,6 +103,8 @@ public class AdminController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        new Thread(() -> Platform.runLater(() -> ((AdminChequeController) fxmlLoader.getController()).setWorker(worker))).start();
+
         AnchorPane child = fxmlLoader.getRoot();
         AnchorPane.setBottomAnchor(child, 0d);
         AnchorPane.setLeftAnchor(child, 0d);

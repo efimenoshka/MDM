@@ -59,8 +59,10 @@ public class AdminCustomerController {
         });
         TableView.TableViewSelectionModel<Customer> selectionRow = tv_customers.getSelectionModel();
         selectionRow.selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null)
+            if (newValue != null) {
                 curCustomer = newValue;
+                but_update.setDisable(false);
+            } else but_update.setDisable(true);
         });
     }
 

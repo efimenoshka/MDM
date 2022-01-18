@@ -1,13 +1,9 @@
 package sample.database;
 
-import sample.tables.Customer;
-import sample.tables.Cheque;
-import sample.tables.TypeOfService;
-import sample.tables.Worker;
+import sample.tables.*;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.stream.Stream;
 
 import static sample.database.Tables.*;
 
@@ -129,6 +125,32 @@ public class Database {
         String request = "SELECT * FROM " + CHEQUE_TABLE;
         try {
             PreparedStatement prSt = getDbConnection().prepareStatement(request);
+            ResultSet pox = prSt.executeQuery();
+            while (pox.next()){
+                cheques.add(new Cheque(
+                        pox.getInt(1),
+                        getTypeServiceById(pox.getInt(2)),
+                        getClientById(pox.getInt(3)),
+                        getWorkerById(pox.getInt(4)),
+                        pox.getDate(5),
+                        pox.getString(6),
+                        pox.getInt(7)
+                ));
+            }
+        }
+        catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return cheques;
+    }
+
+    public ArrayList<Cheque> getListChequeByWorkerIdStatus(Worker worker){
+        ArrayList<Cheque> cheques = new ArrayList<>();
+        String request = "SELECT * FROM " + CHEQUE_TABLE + " WHERE " + CHEQUE_WORKER_ID + "=?" + " AND " + CHEQUE_STATUS + "=?";
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(request);
+            prSt.setInt(1, worker.getId());
+            prSt.setInt(2, Status.PROCESS.ordinal());
             ResultSet pox = prSt.executeQuery();
             while (pox.next()){
                 cheques.add(new Cheque(
@@ -306,7 +328,7 @@ public class Database {
     //добавление заказа в БД
     public void addCheque(Cheque cheque){
         String request = "INSERT INTO " + CHEQUE_TABLE + "(" + CHEQUE_NAME_SERVICE_ID + "," + CHEQUE_CUSTOMER_ID + "," +
-                CHEQUE_WORKER_ID + "," + CHEQUE_DATE + "," + CHEQUE_TIME + ")" + "VALUES(?,?,?,?,?)";
+                CHEQUE_WORKER_ID + "," + CHEQUE_DATE + "," + CHEQUE_TIME + "," + CHEQUE_STATUS + ")" + "VALUES(?,?,?,?,?,?)";
         try {
             PreparedStatement prSt = getDbConnection().prepareStatement(request);
             prSt.setInt(1, cheque.getNameService().getId());
@@ -314,6 +336,7 @@ public class Database {
             prSt.setInt(3, cheque.getWorker().getId());
             prSt.setObject(4, cheque.getDate(), Types.DATE);
             prSt.setObject(5, cheque.getTime(), Types.TIME);
+            prSt.setInt(6, cheque.getStatus().ordinal());
             prSt.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -321,22 +344,24 @@ public class Database {
     }
 
     public void updateCheque(Cheque cheque){
-//        String update = "UPDATE " + CHEQUE_TABLE + " SET " +
-//                    CHEQUE_NAME_SERVICE_ID + "=?," + CHEQUE_CUSTOMER_ID + "=?, " +
-//                    CHEQUE_WORKER_ID + "=?," + CHEQUE_DATE + "=?, " +
-//                    CHEQUE_TIME + "=?," + CHE + "=?, " +
-//                "WHERE " + TYPE_OF_SERVICE_ID + "=?";
-//        try {
-//            PreparedStatement prSt = getDbConnection().prepareStatement(request);
-//            prSt.setInt(1, cheque.getNameService().getId());
-//            prSt.setInt(2, cheque.getCustomer().getId());
-//            prSt.setInt(3, cheque.getWorker().getId());
-//            prSt.setObject(4, cheque.getDate(), Types.DATE);
-//            prSt.setObject(5, cheque.getTime(), Types.TIME);
-//            prSt.executeUpdate();
-//        } catch (SQLException | ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
+        String update = "UPDATE " + CHEQUE_TABLE + " SET " +
+                    CHEQUE_NAME_SERVICE_ID + "=?, " + CHEQUE_CUSTOMER_ID + "=?, " +
+                    CHEQUE_WORKER_ID + "=?, " + CHEQUE_DATE + "=?, " +
+                    CHEQUE_TIME + "=?, " + CHEQUE_STATUS + "=? " +
+                "WHERE " + CHEQUE_ID + "=?";
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(update);
+            prSt.setInt(1, cheque.getNameService().getId());
+            prSt.setInt(2, cheque.getCustomer().getId());
+            prSt.setInt(3, cheque.getWorker().getId());
+            prSt.setObject(4, cheque.getDate(), Types.DATE);
+            prSt.setObject(5, cheque.getTimeStr(), Types.TIME);
+            prSt.setInt(6, cheque.getStatus().ordinal());
+            prSt.setInt(7, cheque.getId());
+            prSt.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     //add new client

@@ -30,15 +30,16 @@ public class Cheque {
         this.cost = nameService.getPrice();
         this.cost = cost.split("\\.")[0];
         dateStr = simpleDate.format(date);
-        timeStr = time.split("\\.")[0];
+        timeStr = time.split("\\.")[0].split(":")[0] + ":" + time.split("\\.")[0].split(":")[1];
     }
 
-    public Cheque(TypeOfService nameService, Customer customer, Worker worker, Date date, String time) {
+    public Cheque(TypeOfService nameService, Customer customer, Worker worker, Date date, String time, Status status) {
         this.nameService = nameService;
         this.customer = customer;
         this.worker = worker;
         this.date = date;
         this.time = time;
+        this.status = status;
     }
 
     public int getId() {

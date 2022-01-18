@@ -39,8 +39,10 @@ public class AdminTypeOfServiceController {
 
         TableView.TableViewSelectionModel<TypeOfService> selectionRow = tv_type_of_service.getSelectionModel();
         selectionRow.selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null)
+            if (newValue != null){
                 curTypeOfService = newValue;
+                but_update.setDisable(false);
+            } else but_update.setDisable(true);
         });
 
         but_add.setOnAction(e -> showAddService());

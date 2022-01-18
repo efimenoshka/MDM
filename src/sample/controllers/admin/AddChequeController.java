@@ -7,43 +7,35 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import sample.controllers.admin.AdminChequeController;
-import sample.controllers.admin.AdminController;
+import sample.MaskField;
 import sample.database.Database;
-import sample.tables.Cheque;
-import sample.tables.Customer;
-import sample.tables.TypeOfService;
-import sample.tables.Worker;
+import sample.tables.*;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class AddChequeController {
     @FXML private ChoiceBox<TypeOfService> choice_service;
-
     @FXML
     private ChoiceBox<Worker> choice_worker;
-
     @FXML
     private TextField tf_name_client;
-
     @FXML
-    private TextField tf_telephone_client;
-
+    private MaskField tf_telephone_client;
     @FXML
     private CheckBox check_new_client;
-
     @FXML
     private TableView<Customer> tv_clients;
-
     @FXML
     private Button but_new_order;
-
-    @FXML private DatePicker dp_date;
+    @FXML
+    private DatePicker dp_date;
 
     @FXML
     private TextField tf_time;
@@ -54,6 +46,7 @@ public class AddChequeController {
     private final ObservableList<Customer> listCustomer = FXCollections.observableArrayList();
     private Customer globalCustomer = null;
     private AdminChequeController parentController;
+    private int globalId;
 
 
     @FXML void initialize() {
@@ -82,7 +75,7 @@ public class AddChequeController {
         tv_clients.setItems(listCustomer);
 
         ChangeListener<String> changeListener1 = (observableValue, oldValue, newValue) -> {
-            tv_clients.setItems(FXCollections.observableArrayList(filterNameTelephoneCustomers().collect(Collectors.toList())));
+            filterNameTelephoneCustomers();
         };
 
         tf_name_client.textProperty().addListener(changeListener1);
@@ -127,16 +120,18 @@ public class AddChequeController {
         tv_clients.getColumns().addAll(nameCustomersColumn, telephoneCustomersColumn);
     }
 
-    private Stream<Customer> filterNameTelephoneCustomers(){
+    private void filterNameTelephoneCustomers(){
         ArrayList<Customer> newCustomer = new ArrayList<>(listCustomer);
         Stream<Customer> stream = newCustomer.stream();
         if (!tf_name_client.getText().trim().isEmpty()){
             stream = stream.filter(customer -> customer.getName().toLowerCase().contains(tf_name_client.getText().toLowerCase().trim()));
         }
         if (!tf_telephone_client.getText().trim().isEmpty()){
-            stream = stream.filter(customer -> customer.getTelephone().toLowerCase().contains(tf_telephone_client.getText().toLowerCase().trim()));
+            stream = stream.filter(customer -> customer.getTelephone().toLowerCase().contains(tf_telephone_client.getPlainText().toLowerCase().trim()));
         }
-       return stream;
+
+        tv_clients.setItems(FXCollections.observableArrayList(stream.collect(Collectors.toList())));
+
     }
 
     //обработка кнопки добавить
@@ -153,7 +148,8 @@ public class AddChequeController {
                     customer,
                     choice_worker.getValue(),
                     Date.from(dp_date.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
-                    tf_time.getText()
+                    tf_time.getText(),
+                    Status.PROCESS
             );
             database.addCheque(cheque);
             close();
@@ -163,7 +159,8 @@ public class AddChequeController {
                     globalCustomer,
                     choice_worker.getValue(),
                     Date.from(dp_date.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
-                    tf_time.getText()
+                    tf_time.getText(),
+                    Status.PROCESS
             );
             database.addCheque(cheque);
             close();
@@ -212,5 +209,72 @@ public class AddChequeController {
 
     public void setParentController(AdminChequeController parentController) {
         this.parentController = parentController;
+    }
+
+    public void setUpdate(Cheque cheque) {
+        globalId = cheque.getId();
+        int indexService = 0;
+        int indexWorker = 0;
+
+
+        for (int i = 0; i < listTypeOfService.size() - 1; i++) {
+            if (choice_service.getItems().get(i).getId() == cheque.getNameService().getId()) indexService = i;
+        }
+
+        choice_service.setValue(listTypeOfService.get(indexService));
+
+
+        for (int i = 0; i < choice_worker.getItems().size(); i++) {
+            if (choice_worker.getItems().get(i).getId() == cheque.getWorker().getId()) indexWorker = i;
+        }
+
+        globalCustomer = cheque.getCustomer();
+
+        tf_name_client.setText(globalCustomer.getName());
+        tf_telephone_client.setText(globalCustomer.getTelephone());
+
+        dp_date.setValue(Instant.ofEpochMilli(cheque.getDate().getTime()).atZone(ZoneId.systemDefault()).toLocalDate());
+
+        tf_time.setText(cheque.getTimeStr());
+
+        choice_worker.setValue(choice_worker.getItems().get(indexWorker));
+
+        but_new_order.setText("Сохранить");
+        but_new_order.setOnAction(e -> update());
+
+
+    }
+
+    private void update() {
+        if (!isAllDate()) {
+            showError();
+            return;
+        }
+
+        if (check_new_client.isSelected()) {
+            Customer customer = database.addGetNewCustomer(new Customer(tf_name_client.getText(), tf_telephone_client.getText()));
+            Cheque cheque = new Cheque(
+                    globalId,
+                    choice_service.getValue(),
+                    customer,
+                    choice_worker.getValue(),
+                    Date.from(dp_date.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
+                    tf_time.getText().trim(),
+                    Status.PROCESS.ordinal()
+            );
+            database.updateCheque(cheque);
+        } else {
+            Cheque cheque = new Cheque(
+                    globalId,
+                    choice_service.getValue(),
+                    globalCustomer,
+                    choice_worker.getValue(),
+                    Date.from(dp_date.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
+                    tf_time.getText().trim(),
+                    Status.PROCESS.ordinal()
+            );
+            database.updateCheque(cheque);
+        }
+        close();
     }
 }
