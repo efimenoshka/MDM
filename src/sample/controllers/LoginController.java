@@ -43,7 +43,6 @@ public class LoginController {
     }
 
     private void logIn(ActionEvent actionEvent) {
-        but_enter.getScene().getWindow().hide();
         Worker worker = database.getWorker(tf_login.getText(), tf_password.getText());
         if (worker == null){
             errorWithoutPassword();
@@ -61,6 +60,7 @@ public class LoginController {
                 Stage stage = new Stage();
                 stage.setTitle("Администратор");
                 stage.setScene(new Scene(root));
+                but_enter.getScene().getWindow().hide();
                 ((AdminController) newLoader.getController()).setWorker(worker);
                 stage.showAndWait();
             } else {
@@ -75,6 +75,7 @@ public class LoginController {
                 Stage stage = new Stage();
                 stage.setTitle("Работник");
                 stage.setScene(new Scene(root));
+                but_enter.getScene().getWindow().hide();
                 ((WorkerController) newLoader.getController()).setWorker(worker);
                 stage.showAndWait();
             }
