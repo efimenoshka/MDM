@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="commons-compress-1.21">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../MyPrograms/poi-bin-5.2.0/ooxml-lib/commons-compress-1.21.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../poi-bin-5.2.0/ooxml-lib/commons-compress-1.21.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

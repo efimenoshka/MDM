@@ -72,6 +72,7 @@ public class AddWorkerController {
         if (cb_position.getValue() == null) return false;
         if (tf_login.getText().trim().isEmpty()) return false;
         if (tf_password.getText().trim().isEmpty()) return false;
+        if (!tf_email.getText().matches("^[_A-Za-z0-9-\\\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")) return false;
         return tf_phone.getText().matches("^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$");
     }
 

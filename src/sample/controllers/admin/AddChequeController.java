@@ -136,6 +136,10 @@ public class AddChequeController {
 
     //обработка кнопки добавить
     private void addCheque(){
+        if (!isCorrectTime()) {
+            showTimeError();
+            return;
+        }
         if (!isAllDate()) {
             showError();
             return;
@@ -167,19 +171,17 @@ public class AddChequeController {
         }
     }
 
+    private void showTimeError() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText("Измените время заказа");
+        alert.setHeaderText("В данное время работник занят");
+        alert.showAndWait();
+    }
+
     private boolean isAllDate(){
         if (choice_service.getValue() == null) return false;
         if (choice_worker.getValue() == null) return false;
         if (tf_time.getText() == null || tf_time.getText().trim().isEmpty()) return false;
-        try {
-            String[] arr = tf_time.getText().split(":");
-            int a = Integer.parseInt(arr[0]);
-            if (a < 0 || a > 23) return false;
-            int b = Integer.parseInt(arr[1]);
-            if (b < 0 || b > 59) return false;
-        } catch (Exception ex) {
-            return false;
-        }
         if (dp_date.getValue() == null) return false;
         if (check_new_client.isSelected()){
            if (tf_name_client.getText() == null || tf_name_client.getText().trim().isEmpty()) return false;
@@ -187,6 +189,36 @@ public class AddChequeController {
         } else {
             return globalCustomer != null;
         }
+    }
+
+    private boolean isCorrectTime() {
+        ArrayList<Cheque> cheques = database.getListChequeByWorkerId(choice_worker.getValue());
+        try {
+            String[] arr = tf_time.getText().split(":");
+            int a = Integer.parseInt(arr[0]);
+            if (a < 0 || a > 23) return false;
+            int b = Integer.parseInt(arr[1]);
+            if (b < 0 || b > 59) return false;
+
+            int time = a * 60 + b;
+            int serviceTime = Integer.parseInt(choice_service.getValue().getTime());
+
+            for (Cheque cheque: cheques) {
+                int cheServiceTime = Integer.parseInt(cheque.getNameService().getTime());
+                int che = cheque.timeSec();
+                if (cheque.getDate().equals(Date.from(dp_date.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant())) &&
+                        cheque.timeSec() - time < serviceTime &&
+                        cheque.timeSec() > time
+                ) return false;
+                if (cheque.getDate().equals(Date.from(dp_date.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant())) &&
+                        time - cheque.timeSec() < cheServiceTime &&
+                        cheque.timeSec() < time
+                ) return false;
+            }
+        } catch (Exception ex) {
+            return false;
+        }
+        return true;
     }
 
     private void showError(){
@@ -246,6 +278,10 @@ public class AddChequeController {
     }
 
     private void update() {
+        if (!isCorrectTime()) {
+            showTimeError();
+            return;
+        }
         if (!isAllDate()) {
             showError();
             return;

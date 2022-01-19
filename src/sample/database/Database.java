@@ -10,8 +10,8 @@ import static sample.database.Tables.*;
 public class Database {
     protected String dbHost = "localhost\\SQLEXPRESS";
     protected String dbName = "IS_Hairdresser";
-//    protected String dbUser = "admin";
-    protected String dbUser = "root";
+    protected String dbUser = "admin";
+//    protected String dbUser = "root";
     protected String dbPass = "1234";
 
     protected String dbConnectString = "jdbc:sqlserver://" + dbHost + ";database=" + dbName;

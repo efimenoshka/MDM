@@ -48,7 +48,7 @@ public class AdminChequeController {
     @FXML
     private Button but_report;
 
-    private Worker worker;
+    public Worker worker;
     private Database database = new Database();
     private Cheque curCheque = null;
     private ObservableList<Cheque> listCheque = FXCollections.observableArrayList();

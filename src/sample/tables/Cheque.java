@@ -121,4 +121,12 @@ public class Cheque {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    public int timeSec() {
+        String[] arr = timeStr.split(":");
+        int a = Integer.parseInt(arr[0]);
+        int b = Integer.parseInt(arr[1]);
+
+        return a * 60 + b;
+    }
 }

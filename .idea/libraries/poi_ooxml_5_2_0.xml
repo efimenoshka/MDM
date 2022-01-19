@@ -1,7 +1,8 @@
 <component name="libraryTable">
   <library name="poi-ooxml-5.2.0">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../MyPrograms/poi-bin-5.2.0/poi-ooxml-5.2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../poi-bin-5.2.0/poi-ooxml-5.2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../poi-bin-5.2.0/poi-ooxml-full-5.2.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

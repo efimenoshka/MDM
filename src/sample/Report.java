@@ -28,7 +28,7 @@ public class Report {
     }
 
     public void create() throws IOException {
-        String fileName = "C:\\JavaProjects\\MDM\\src\\Report.docx";
+        String fileName = "C:\\Users\\efime\\IdeaProjects\\Barbershop\\src\\Report.docx";
         InputStream fis = new FileInputStream(fileName);
         XWPFDocument document = new XWPFDocument(fis);
 
@@ -104,12 +104,12 @@ public class Report {
         row.getCell(3).getParagraphs().get(0).getRuns().get(0).setBold(true);
         row.getCell(2).getParagraphs().get(0).getRuns().get(0).setBold(true);
 
-        OutputStream out = new FileOutputStream("C:\\JavaProjects\\MDM\\src\\OutputReport.docx");
+        OutputStream out = new FileOutputStream("C:\\Users\\efime\\IdeaProjects\\Barbershop\\src\\OutputReport.docx");
         document.write(out);
         out.close();
 
         try {
-            Runtime.getRuntime().exec("C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE C:\\JavaProjects\\MDM\\src\\OutputReport.docx");
+            Runtime.getRuntime().exec("C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE C:\\Users\\efime\\IdeaProjects\\Barbershop\\src\\OutputReport.docx");
         } catch (IOException e) {
             e.printStackTrace();
         }
